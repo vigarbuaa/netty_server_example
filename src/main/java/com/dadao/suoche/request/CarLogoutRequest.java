@@ -11,10 +11,6 @@ import com.dadao.suoche.protocol.BaseMessage;
 import io.netty.buffer.ByteBuf;
 import lombok.Data;
 
-/**
- * @author liujian
- *
- */
 @Data
 public class CarLogoutRequest extends BaseMessage {
 
@@ -23,7 +19,6 @@ public class CarLogoutRequest extends BaseMessage {
 
 	@Override
 	public Object initFromByteBuf(ByteBuf buf) throws Exception {
-		// TODO Auto-generated method stub
 		super.initFromByteBuf(buf);
 		// 登出时间
 		int year = buf.readByte() + 2000;
@@ -42,7 +37,6 @@ public class CarLogoutRequest extends BaseMessage {
 
 	@Override
 	public void toNetByteBuf(ByteBuf buf) {
-		// TODO Auto-generated method stub
 		super.toNetByteBuf(buf);
 
 		Calendar calendar = Calendar.getInstance();

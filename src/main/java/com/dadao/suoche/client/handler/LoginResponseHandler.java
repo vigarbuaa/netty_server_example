@@ -1,60 +1,43 @@
 package com.dadao.suoche.client.handler;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.UUID;
 
-import com.dadao.suoche.protocol.MsgHeader;
-import com.dadao.suoche.request.CarLoginRequest;
+import com.dadao.suoche.request.LoginRequestPacket;
+import com.dadao.suoche.response.LoginResponsePacket;
+import com.dadao.suoche.util.SessionUtil;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class LoginResponseHandler extends SimpleChannelInboundHandler<CarLoginRequest> {
+public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+    	System.out.println("LoginResponseHandler channelActive");
+		LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
+        loginRequestPacket.setUserId(UUID.randomUUID().toString());
+        loginRequestPacket.setUsername("flash");
+        loginRequestPacket.setPassword("pwd");
+    	System.out.println("LoginResponseHandler channelActive"+loginRequestPacket.toString() );
+		ctx.channel().writeAndFlush(loginRequestPacket);
+    }
+    
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx){
+    	SessionUtil.unBindSession(ctx.channel());
+    }
+    
 	@Override
-	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		System.out.println("come to LoginResponseHandler!");
-		CarLoginRequest carLoginRequest = new CarLoginRequest();
-		carLoginRequest.setICCID("123456789ABCDEF12345");
-		carLoginRequest.setLoginID(2);
-		carLoginRequest.setBatTeamCount((short) 3);
-		carLoginRequest.setDateTime(new Date());
-		List<String> teamList =new ArrayList<String>();
-		teamList.add("head1");
-		teamList.add("head2");
-		teamList.add("head3");
-		carLoginRequest.setBatTeamCodeList(teamList);
-		MsgHeader header = MsgHeader.getCommonHeader((byte) 0x01, (byte) 0xfe, "2222", 36);
-		carLoginRequest.setHeader(header);
-		ctx.channel().writeAndFlush(carLoginRequest);
-	/*	.addListener(
-				future->{
-					if (future.isSuccess()){
-						System.out.println("发送成功");
-					}else{
-						System.out.println(future.cause().getCause().toString());
-						System.out.println(future.cause().getStackTrace().toString());
-						future.cause().printStackTrace();
-						System.out.println(future.cause().getStackTrace().toString());
-						System.out.println("没搞定");
-					}
-				}
-			);
-	*/
-		
-		System.out.println("flag is " + carLoginRequest.toJsonString());
-		System.out.println("send msg successed");
-	}
-
-	@Override
-	public void channelInactive(ChannelHandlerContext ctx) {
-		// SessionUtil.unBindSession(ctx.channel());
-	}
-
-	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, CarLoginRequest msg) throws Exception {
-		System.out.println("收到回令：LoginResponseHandler messageReceived: " + msg.toJsonString());
-		// 判断并打印回令信息
+	protected void messageReceived(ChannelHandlerContext ctx, LoginResponsePacket msg) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("LoginResponseHandler messageReceived: " + msg.getReason());
+		if (msg.isSuccess()) {
+            System.out.println(new Date() + ": 客户端登录成功");
+            System.out.println("recv msg: " + msg.toString());
+//            LoginUtil.markAsLogin(ctx.channel());
+        } else {
+            System.out.println(new Date() + ": 客户端登录失败，原因：" + msg.getReason());
+        }
 	}
 }

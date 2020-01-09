@@ -3,6 +3,9 @@ package com.dadao.suoche.util;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.dadao.suoche.attr.Attributes;
+import com.dadao.suoche.attr.Session;
+
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 

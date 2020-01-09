@@ -1,9 +1,9 @@
 package com.dadao.suoche.server;
 
 import com.dadao.suoche.server.handler.CarLoginRequestHandler;
-import com.dadao.suoche.server.handler.CarPacketDecoder;
-import com.dadao.suoche.server.handler.CarPacketEncoder;
-import com.dadao.suoche.server.handler.CarSpliter;
+import com.dadao.suoche.server.handler.PacketDecoder;
+import com.dadao.suoche.server.handler.PacketEncoder;
+import com.dadao.suoche.server.handler.Spliter;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -16,7 +16,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-public class LockServer {
+public class NettyServer {
 	public void bind(int port) throws Exception {
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -39,16 +39,17 @@ public class LockServer {
 	private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 		@Override
 		protected void initChannel(SocketChannel ch) throws Exception {
-			ch.pipeline().addLast(new CarSpliter());
-			ch.pipeline().addLast(new CarPacketDecoder());
+			ch.pipeline().addLast(new Spliter());
+			ch.pipeline().addLast(new PacketDecoder());
+//			ch.pipeline().addLast(new LoginRequestHandler());
 			ch.pipeline().addLast(new CarLoginRequestHandler());
-			// ch.pipeline().addLast(new AuthHandler());
-			// ch.pipeline().addLast(new MessageRequestHandler());
-			ch.pipeline().addLast(new CarPacketEncoder());
+//			ch.pipeline().addLast(new AuthHandler());
+//			ch.pipeline().addLast(new MessageRequestHandler());
+			ch.pipeline().addLast(new PacketEncoder());
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
-		new LockServer().bind(8000);
+		new NettyServer().bind(8000);
 	}
 }
