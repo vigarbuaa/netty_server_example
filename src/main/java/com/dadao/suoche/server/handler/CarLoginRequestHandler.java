@@ -26,16 +26,14 @@ public class CarLoginRequestHandler extends SimpleChannelInboundHandler<CarLogin
 	
 	protected void messageReceived(ChannelHandlerContext ctx, CarLoginRequest msg) throws Exception {
 		logger.debug("LoginRequestHandler messageReceived");
-//		CommonResponse resp;
-//		String iccid = msg.getICCID();
-//		String key = msg.getHeader().getVehicleId();
+		CommonResponse resp;
 //		String value = msg.toJsonString();
 //		logger.info(iccid + " | " + key + " | " + value);
 //		// 程序自己判断一下返回什么值，这里做个示例
-//		resp = new CommonResponse(msg.getHeader(), (byte) 0x01);
-//		logger.debug("LoginRequestHandler begin to send resp");
-//		sendResp(resp, ctx, msg);
-//		logger.debug("LoginRequestHandler finish send resp");
+		resp = new CommonResponse(msg.getHeader(), (byte) 0x01);
+		logger.debug("LoginRequestHandler begin to send resp");
+		sendResp(resp, ctx, msg);
+		logger.debug("LoginRequestHandler finish send resp");
 	}
 
 	// 发送回令
