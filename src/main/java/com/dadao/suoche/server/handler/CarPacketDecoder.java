@@ -26,18 +26,7 @@ public class CarPacketDecoder extends ByteToMessageDecoder {
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) throws Exception {
-		System.out.println("----Server decodder begin----------");
 		logger.info("Come to PacketDecoder! ");
-		logger.debug("the message length is: " + buf.readableBytes());
-		logger.debug("RAW DATA:----------------------");
-		for (int i = 0; i < buf.readableBytes();) {
-			String rawData = "";
-			for (int j = 0; j < 10 && i < buf.readableBytes(); i++) {
-				rawData += Integer.toString((buf.getByte(i) & 0xff) + 0x100, 16).substring(1);
-				rawData += "   ";
-			}
-			logger.debug(" " + rawData);
-		}
 
 		byte reqID = buf.getByte(BaseMessage.TYPE_POS);
 		byte respID = buf.getByte(BaseMessage.TYPE_POS + 1);
