@@ -26,7 +26,7 @@ public class CarLoginResponseHandler extends SimpleChannelInboundHandler<CommonR
 		teamList.add("head2");
 		teamList.add("head3");
 		carLoginRequest.setBatTeamCodeList(teamList);
-		MsgHeader header = MsgHeader.getCommonHeader((byte) 0x01, (byte) 0xfe, "2222", 36);
+		MsgHeader header = MsgHeader.getCommonHeader((byte) 0x01, (byte) 0xfe, "LZYTFGAWXJ1061315", 36);
 		carLoginRequest.setHeader(header);
 		ctx.channel().writeAndFlush(carLoginRequest);
 		System.out.println("flag is " + carLoginRequest.toJsonString());
