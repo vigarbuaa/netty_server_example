@@ -1,27 +1,30 @@
 package com.dadao.suoche.server.handler;
 
-import com.dadao.suoche.protocol.PacketCodeC;
+import java.nio.ByteOrder;
 
 import org.apache.log4j.Logger;
+
+import com.dadao.suoche.protocol.BaseMessage;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
 public class Spliter extends LengthFieldBasedFrameDecoder {
-	private static final int LENGTH_FIELD_OFFSET = 7;
-	private static final int LENGTH_FIELD_LENGTH = 4;
 
 	private static Logger logger = Logger.getLogger(Spliter.class);
 
 	public Spliter() {
-		super(Integer.MAX_VALUE, LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH);
+//		super(Integer.MAX_VALUE, LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH);
+		super(ByteOrder.BIG_ENDIAN, Integer.MAX_VALUE,
+				BaseMessage.LENGTH_OFFSET, BaseMessage.LENGTH_SZIE, 1, 0, false);
 	}
 
 	@Override
 	protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
 		//打印原始报文
 		logger.debug("the message length is: " + in.readableBytes());
-		logger.debug("RAW DATA RECORDER:----------------------");
+		logger.debug("--------spliter print raw data----------");
 		for (int i = 0; i < in.readableBytes();) {
 			String rawData = "";
 			for (int j = 0; j < 10 && i < in.readableBytes(); i++) {
