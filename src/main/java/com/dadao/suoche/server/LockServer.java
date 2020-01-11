@@ -43,7 +43,7 @@ public class LockServer {
 			ch.pipeline().addLast(new CarSpliter());
 			ch.pipeline().addLast(new CarPacketDecoder());
 			ch.pipeline().addLast(new CarLoginRequestHandler());
-//			ch.pipeline().addLast(new HeartBeatHandler());
+			ch.pipeline().addLast(new HeartBeatHandler());
 			// ch.pipeline().addLast(new AuthHandler());
 			// ch.pipeline().addLast(new MessageRequestHandler());
 			ch.pipeline().addLast(new CarPacketEncoder());

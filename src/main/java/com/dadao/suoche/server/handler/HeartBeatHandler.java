@@ -11,13 +11,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class HeartBeatHandler extends SimpleChannelInboundHandler<HeartBeatRequest> {
-	private static Logger logger = Logger.getLogger(CarLoginRequestHandler.class);
+	private static Logger logger = Logger.getLogger(HeartBeatHandler.class);
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, HeartBeatRequest msg) throws Exception {
+		logger.debug("msg recv: "+msg.toJsonString());
 		if(msg.getHeader().getRespID()!=0x01){
 			// 发送回令
-			CommonResponse resp = new CommonResponse(msg.getHeader(),(byte) 0x01);
+			CommonResponse resp = new CommonResponse(msg.getHeader(),(byte) 0x07);
 			logger.debug("heartBeat resp: " + resp.toJsonString());
 			ctx.channel().writeAndFlush(resp);
 		}else{
