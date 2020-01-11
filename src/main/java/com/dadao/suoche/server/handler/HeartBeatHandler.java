@@ -21,13 +21,17 @@ public class HeartBeatHandler extends SimpleChannelInboundHandler<HeartBeatReque
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, HeartBeatRequest msg) throws Exception {
 		logger.debug("msg recv: "+msg.toJsonString());
+	
+        ctx.channel().writeAndFlush(msg);
+		/*
 		if(msg.getHeader().getRespID()!=0x01){
 			// 发送回令
-			CommonResponse resp = new CommonResponse(msg.getHeader(),(byte) 0x07);
+			CommonResponse resp = new CommonResponse(msg.getHeader(),(byte) 0x01);
 			logger.debug("heartBeat resp: " + resp.toJsonString());
 			ctx.channel().writeAndFlush(resp);
 		}else{
 			logger.error("get HeartRequest respID error: " + msg.getHeader().getRespID());
 		}
+		*/
 	}
 }

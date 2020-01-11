@@ -26,9 +26,8 @@ public class CarPacketDecoder extends ByteToMessageDecoder {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("come to PacketDecoder channelActive");
-//		CarLoginRequest msg=mockLogin();
-		HeartBeatRequest msg=mockHeartBeat();
-		
+		CarLoginRequest msg=mockLogin();
+		HeartBeatRequest msg1=mockHeartBeat();
 		ctx.channel().writeAndFlush(msg);
 		System.out.println("flag is " + msg.toJsonString());
 		System.out.println("send car login request msg successed");

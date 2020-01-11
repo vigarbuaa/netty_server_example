@@ -24,5 +24,6 @@ public class CarLoginResponseHandler extends SimpleChannelInboundHandler<CommonR
 	protected void messageReceived(ChannelHandlerContext ctx, CommonResponse msg) throws Exception {
 		// TODO Auto-generated method stub
 		logger.debug("收到回令：LoginResponseHandler CommonResponse messageReceived: " + msg.toJsonString());
+		
 	}
 }
