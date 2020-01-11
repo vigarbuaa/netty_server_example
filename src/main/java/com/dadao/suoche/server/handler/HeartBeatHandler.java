@@ -14,6 +14,11 @@ public class HeartBeatHandler extends SimpleChannelInboundHandler<HeartBeatReque
 	private static Logger logger = Logger.getLogger(HeartBeatHandler.class);
 
 	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		logger.debug("come to HeartBeatHandler channelActive");
+	}
+
+	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, HeartBeatRequest msg) throws Exception {
 		logger.debug("msg recv: "+msg.toJsonString());
 		if(msg.getHeader().getRespID()!=0x01){
