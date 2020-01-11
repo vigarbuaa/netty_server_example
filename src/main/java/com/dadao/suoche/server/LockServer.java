@@ -4,6 +4,7 @@ import com.dadao.suoche.server.handler.CarLoginRequestHandler;
 import com.dadao.suoche.server.handler.CarPacketDecoder;
 import com.dadao.suoche.server.handler.CarPacketEncoder;
 import com.dadao.suoche.server.handler.CarSpliter;
+import com.dadao.suoche.server.handler.HeartBeatHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -42,6 +43,7 @@ public class LockServer {
 			ch.pipeline().addLast(new CarSpliter());
 			ch.pipeline().addLast(new CarPacketDecoder());
 			ch.pipeline().addLast(new CarLoginRequestHandler());
+//			ch.pipeline().addLast(new HeartBeatHandler());
 			// ch.pipeline().addLast(new AuthHandler());
 			// ch.pipeline().addLast(new MessageRequestHandler());
 			ch.pipeline().addLast(new CarPacketEncoder());

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.dadao.suoche.request.CarLoginRequest;
 import com.dadao.suoche.request.CarLogoutRequest;
+import com.dadao.suoche.request.HeartBeatRequest;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,10 +28,12 @@ public class MessageType {
 	
 	public static final byte LOGIN = 0x01;
 	public static final byte LOGOUT = 0x04;
+	public static final byte HEARTBEAT = 0x07;
 
 	static {
 		ID_MAP.put((byte) 0x01, CarLoginRequest.class);
 		ID_MAP.put((byte) 0x04, CarLogoutRequest.class);
+		ID_MAP.put((byte) 0x07, HeartBeatRequest.class);
 	}
 
 	public static boolean hasID(byte id) {
@@ -43,5 +46,5 @@ public class MessageType {
 
 	public static Class<? extends BaseMessage> getMessageClass(byte id) {
 		return ID_MAP.get(id);
+	} 
 	}
-}

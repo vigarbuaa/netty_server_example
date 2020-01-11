@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.dadao.suoche.request.LoginRequestPacket;
-import com.dadao.suoche.response.LoginResponsePacket;
 import com.dadao.suoche.util.SessionUtil;
 
 import io.netty.channel.ChannelHandlerContext;

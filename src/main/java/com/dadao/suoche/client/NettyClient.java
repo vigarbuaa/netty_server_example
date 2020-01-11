@@ -3,11 +3,10 @@ package com.dadao.suoche.client;
 import java.util.Scanner;
 
 import com.dadao.suoche.client.handler.CarLoginResponseHandler;
+import com.dadao.suoche.client.handler.HeartBeatClientHandler;
 import com.dadao.suoche.request.LoginRequestPacket;
 import com.dadao.suoche.server.handler.CarPacketDecoder;
 import com.dadao.suoche.server.handler.CarPacketEncoder;
-import com.dadao.suoche.server.handler.PacketDecoder;
-import com.dadao.suoche.server.handler.PacketEncoder;
 import com.dadao.suoche.server.handler.Spliter;
 import com.dadao.suoche.util.SessionUtil;
 
@@ -40,6 +39,7 @@ public class NettyClient {
 //						ch.pipeline().addLast(new LoginResponseHandler());
 						ch.pipeline().addLast(new CarPacketDecoder());
 						ch.pipeline().addLast(new CarLoginResponseHandler());
+//						ch.pipeline().addLast(new HeartBeatClientHandler());
 //						ch.pipeline().addLast(new MessageResponseHandler());
 //						ch.pipeline().addLast(new ClientHandler());
 						ch.pipeline().addFirst(new CarPacketEncoder());

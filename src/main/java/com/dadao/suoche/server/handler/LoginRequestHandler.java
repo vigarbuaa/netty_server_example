@@ -1,8 +1,6 @@
 package com.dadao.suoche.server.handler;
 
 import com.dadao.suoche.request.LoginRequestPacket;
-import com.dadao.suoche.response.LoginResponsePacket;
-import com.dadao.suoche.util.SessionUtil;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
