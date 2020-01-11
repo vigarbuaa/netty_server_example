@@ -38,8 +38,8 @@ public class NettyClient {
 						ch.pipeline().addLast(new Spliter());
 //						ch.pipeline().addLast(new PacketEncoder());
 //						ch.pipeline().addLast(new LoginResponseHandler());
-						ch.pipeline().addLast(new CarLoginResponseHandler());
 						ch.pipeline().addLast(new CarPacketDecoder());
+						ch.pipeline().addLast(new CarLoginResponseHandler());
 //						ch.pipeline().addLast(new MessageResponseHandler());
 //						ch.pipeline().addLast(new ClientHandler());
 						ch.pipeline().addFirst(new CarPacketEncoder());
