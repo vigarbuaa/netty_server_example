@@ -12,6 +12,7 @@ import com.dadao.suoche.protocol.BaseMessage;
 import com.dadao.suoche.protocol.MessageType;
 import com.dadao.suoche.protocol.MsgHeader;
 import com.dadao.suoche.request.CarLoginRequest;
+import com.dadao.suoche.request.HeartBeatRequest;
 import com.dadao.suoche.response.CommonResponse;
 
 import io.netty.buffer.ByteBuf;
@@ -25,6 +26,22 @@ public class CarPacketDecoder extends ByteToMessageDecoder {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("come to PacketDecoder channelActive");
+//		CarLoginRequest msg=mockLogin();
+		HeartBeatRequest msg=mockHeartBeat();
+		
+		ctx.channel().writeAndFlush(msg);
+		System.out.println("flag is " + msg.toJsonString());
+		System.out.println("send car login request msg successed");
+	}
+	
+	private HeartBeatRequest mockHeartBeat(){
+		HeartBeatRequest heart= new HeartBeatRequest();
+		MsgHeader header = MsgHeader.getCommonHeader((byte) 0x07, (byte) 0xfe, "HEARTGAWXJ1061315", 1);
+		heart.setHeader(header);
+		return heart;	
+	}
+	
+	private CarLoginRequest mockLogin(){
 		CarLoginRequest carLoginRequest = new CarLoginRequest();
 		carLoginRequest.setICCID("123456789ABCDEF12345");
 		carLoginRequest.setLoginID(2);
@@ -37,9 +54,7 @@ public class CarPacketDecoder extends ByteToMessageDecoder {
 		carLoginRequest.setBatTeamCodeList(teamList);
 		MsgHeader header = MsgHeader.getCommonHeader((byte) 0x01, (byte) 0xfe, "LZYTFGAWXJ1061315", 36);
 		carLoginRequest.setHeader(header);
-		ctx.channel().writeAndFlush(carLoginRequest);
-		System.out.println("flag is " + carLoginRequest.toJsonString());
-		System.out.println("send car login request msg successed");
+		return carLoginRequest;
 	}
 
 	@Override

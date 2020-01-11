@@ -1,6 +1,7 @@
 package com.dadao.suoche.server;
 
 import com.dadao.suoche.server.handler.CarLoginRequestHandler;
+import com.dadao.suoche.server.handler.HeartBeatHandler;
 import com.dadao.suoche.server.handler.PacketDecoder;
 import com.dadao.suoche.server.handler.PacketEncoder;
 import com.dadao.suoche.server.handler.Spliter;
@@ -43,6 +44,7 @@ public class NettyServer {
 			ch.pipeline().addLast(new PacketDecoder());
 //			ch.pipeline().addLast(new LoginRequestHandler());
 			ch.pipeline().addLast(new CarLoginRequestHandler());
+			ch.pipeline().addLast(new HeartBeatHandler());
 //			ch.pipeline().addLast(new AuthHandler());
 //			ch.pipeline().addLast(new MessageRequestHandler());
 			ch.pipeline().addLast(new PacketEncoder());
