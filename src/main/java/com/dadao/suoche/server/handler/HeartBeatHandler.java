@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HeartBeatHandler extends SimpleChannelInboundHandler<HeartBeatRequest> {
 	private static Logger logger = Logger.getLogger(HeartBeatHandler.class);
-
+    // 为什么msgrecv被触发，而channelActive没被触发
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		logger.debug("come to HeartBeatHandler channelActive");
