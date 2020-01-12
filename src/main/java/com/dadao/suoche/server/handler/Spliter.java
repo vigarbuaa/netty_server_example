@@ -28,7 +28,7 @@ public class Spliter extends LengthFieldBasedFrameDecoder {
 		for (int i = 0; i < in.readableBytes();) {
 			String rawData = "";
 			for (int j = 0; j < 10 && i < in.readableBytes(); i++) {
-				rawData += " Ox"+Integer.toString((in.getByte(i) & 0xff) + 0x100, 16).substring(1);
+				rawData += " 0x"+Integer.toString((in.getByte(i) & 0xff) + 0x100, 16).substring(1);
 			}
 			logger.debug(" " + rawData);
 		}

@@ -30,7 +30,7 @@ public class CarPacketEncoder extends MessageToByteEncoder<BaseMessage> {
 		for (int i = 0; i < bigEndianBuf.readableBytes();) {
 			String rawData = "";
 			for (int j = 0; j < 10 && i < bigEndianBuf.readableBytes(); i++) {
-				rawData += " Ox" + Integer.toString((bigEndianBuf.getByte(i) & 0xff) + 0x100, 16).substring(1);
+				rawData += " 0x" + Integer.toString((bigEndianBuf.getByte(i) & 0xff) + 0x100, 16).substring(1);
 			}
 			System.out.println(" " + rawData);
 		}
@@ -39,7 +39,7 @@ public class CarPacketEncoder extends MessageToByteEncoder<BaseMessage> {
 	private void addCheckCode(ByteBuf buf) {
 		buf.markReaderIndex();
 		byte checkCode = 0;
-		int x = buf.readableBytes();
+//		int x = buf.readableBytes();
 		int n = buf.readableBytes();
 		for (int i = 0; i < n; i++) {
 			checkCode ^= buf.readByte();
