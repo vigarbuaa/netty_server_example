@@ -49,6 +49,7 @@ public class CarPacketDecoder extends ByteToMessageDecoder {
 		logger.debug("判断包长度 readableBytes length is :" + msgLength);
 		if (msgLength < BaseMessage.BASE_MSG_LENGTH) {
 //			throw new IllegelPackageException("包长度过小");
+			System.err.println("包长度过小,退出recode");
 			return;
 		}
 		// 判断校验码
