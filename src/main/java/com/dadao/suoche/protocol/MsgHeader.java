@@ -33,12 +33,9 @@ public class MsgHeader implements NetSerializable {
 	}
 
 	public void toNetByteBuf(ByteBuf buf) {
-		System.out.println("toNetByteBuf mark1");
 		try {
-		System.out.println("toNetByteBuf mark2");
 			byte[] flag = this.getFlag().getBytes();
 			buf.writeBytes(flag);
-		System.out.println("toNetByteBuf mark3");
 			// 写命令标识
 			buf.writeByte(this.getReqID());
 			// 写应答标志

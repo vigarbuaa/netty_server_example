@@ -4,8 +4,12 @@
 package com.dadao.suoche.server.handler;
 
 import org.apache.log4j.Logger;
+
+import com.dadao.suoche.attr.Session;
 import com.dadao.suoche.request.CarLoginRequest;
 import com.dadao.suoche.response.CommonResponse;
+import com.dadao.suoche.util.SessionUtil;
+
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -31,8 +35,10 @@ public class CarLoginRequestHandler extends SimpleChannelInboundHandler<CarLogin
 //		logger.info(iccid + " | " + key + " | " + value);
 //		// 程序自己判断一下返回什么值，这里做个示例
 		resp = new CommonResponse(msg.getHeader(), (byte) 0x01);
+		ctx.fireChannelRead(msg);
 		logger.debug("LoginRequestHandler begin to send resp");
 		sendResp(resp, ctx, msg);
+		SessionUtil.bindSession(new Session("11213", msg.getICCID() ), ctx.channel());
 		logger.debug("LoginRequestHandler finish send resp");
 	}
 

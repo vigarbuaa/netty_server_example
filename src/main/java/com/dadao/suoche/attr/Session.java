@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Session {
 	private String userId;
-	private String userName;
+	private String iccid;
 
     public Session(String userId, String userName) {
         this.userId = userId;
-        this.userName = userName;
+        this.iccid = userName;
     }
     
 	@Override
 	public String toString(){
-		return userId+":"+userName;
+		return userId+":"+iccid;
 	}
 }

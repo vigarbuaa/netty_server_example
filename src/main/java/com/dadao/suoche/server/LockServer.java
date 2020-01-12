@@ -1,5 +1,6 @@
 package com.dadao.suoche.server;
 
+import com.dadao.suoche.server.handler.AuthHandler;
 import com.dadao.suoche.server.handler.CarLoginRequestHandler;
 import com.dadao.suoche.server.handler.CarPacketDecoder;
 import com.dadao.suoche.server.handler.CarPacketEncoder;
@@ -43,6 +44,7 @@ public class LockServer {
 			ch.pipeline().addLast(new CarSpliter());
 			ch.pipeline().addLast(new CarPacketDecoder());
 			ch.pipeline().addLast(new CarLoginRequestHandler());
+//			ch.pipeline().addLast(new AuthHandler());
 			ch.pipeline().addLast(new HeartBeatHandler());
 			// ch.pipeline().addLast(new AuthHandler());
 			// ch.pipeline().addLast(new MessageRequestHandler());
