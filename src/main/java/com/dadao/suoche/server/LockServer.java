@@ -1,5 +1,7 @@
 package com.dadao.suoche.server;
 
+import java.nio.ByteOrder;
+
 import com.dadao.suoche.server.handler.AuthHandler;
 import com.dadao.suoche.server.handler.CarLoginRequestHandler;
 import com.dadao.suoche.server.handler.CarPacketDecoder;
@@ -15,8 +17,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import com.dadao.suoche.protocol.BaseMessage;
 
 public class LockServer {
 	public void bind(int port) throws Exception {
@@ -41,7 +45,10 @@ public class LockServer {
 	private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 		@Override
 		protected void initChannel(SocketChannel ch) throws Exception {
-			ch.pipeline().addLast(new CarSpliter());
+//			ch.pipeline().addLast(new CarSpliter());
+			ch.pipeline().addLast(
+			new LengthFieldBasedFrameDecoder(ByteOrder.BIG_ENDIAN, BaseMessage.MAX_MSG_LENGTH,
+					BaseMessage.LENGTH_OFFSET, BaseMessage.LENGTH_SZIE, 1, 0, false));					
 			ch.pipeline().addLast(new CarPacketDecoder());
 			ch.pipeline().addLast(new CarLoginRequestHandler());
 //			ch.pipeline().addLast(new AuthHandler());

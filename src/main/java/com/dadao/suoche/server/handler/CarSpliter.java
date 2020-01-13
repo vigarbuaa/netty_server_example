@@ -12,7 +12,8 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 public class CarSpliter extends LengthFieldBasedFrameDecoder {
 	private static Logger logger = Logger.getLogger(CarSpliter.class);
 	public CarSpliter() {
-		 super(ByteOrder.BIG_ENDIAN, BaseMessage.MAX_MSG_LENGTH,BaseMessage.LENGTH_OFFSET, BaseMessage.LENGTH_SZIE, 1, 0, false);
+//		 super(ByteOrder.BIG_ENDIAN, BaseMessage.MAX_MSG_LENGTH,BaseMessage.LENGTH_OFFSET, BaseMessage.LENGTH_SZIE, 1, 0, false);
+		 super(ByteOrder.BIG_ENDIAN, BaseMessage.MAX_MSG_LENGTH,BaseMessage.LENGTH_OFFSET, BaseMessage.LENGTH_SZIE, 1, 0, true);
 	}
 
 	@Override

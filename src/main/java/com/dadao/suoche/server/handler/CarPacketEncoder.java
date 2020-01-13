@@ -25,14 +25,14 @@ public class CarPacketEncoder extends MessageToByteEncoder<BaseMessage> {
 		if (bigEndianBuf.readableBytes() > 0) {
 			addCheckCode(bigEndianBuf);
 		}
-		System.out.println("the message length is: " + bigEndianBuf.readableBytes());
+		logger.debug("the message length is: " + bigEndianBuf.readableBytes());
 		logger.debug("--------encoder print raw data----------");
 		for (int i = 0; i < bigEndianBuf.readableBytes();) {
 			String rawData = "";
 			for (int j = 0; j < 10 && i < bigEndianBuf.readableBytes(); i++) {
 				rawData += " 0x" + Integer.toString((bigEndianBuf.getByte(i) & 0xff) + 0x100, 16).substring(1);
 			}
-			System.out.println(" " + rawData);
+			logger.debug(" encoder send rawdata:  " + rawData);
 		}
 	}
 
